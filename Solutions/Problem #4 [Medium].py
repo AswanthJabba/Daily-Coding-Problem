@@ -9,3 +9,24 @@ For example, the input [3, 4, -1, 1] should give 2. The input [1, 2, 0] should g
 
 You can modify the input array in-place.
 '''
+def firstMissingPositive(arr, n):
+	ptr = 0
+	for i in range(n):
+		if arr[i] == 1:
+			ptr = 1
+			break
+	if ptr == 0:
+		return(1)
+	for i in range(n):
+		if arr[i] <= 0 or arr[i] > n:
+			arr[i] = 1
+	for i in range(n):
+		arr[(arr[i] - 1) % n] += n
+	for i in range(n):
+		if arr[i] <= n:
+			return(i + 1)
+	return(n + 1)
+
+A = [3, 4, -1, 1]
+N = len(A)
+print(firstMissingPositive(A, N))
